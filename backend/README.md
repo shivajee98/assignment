@@ -1,6 +1,6 @@
 # Hierarchy Chat - Backend
 
-A Laravel API for hierarchical messaging where messages flow downward only.
+Laravel API for hierarchical messaging with Docker support for Render deployment.
 
 ## Hierarchy
 
@@ -8,26 +8,45 @@ A Laravel API for hierarchical messaging where messages flow downward only.
 Super Admin → Admin → Manager → Incharge → Team Leader → Employee
 ```
 
-- Higher level can message lower level
-- Lower level CANNOT message higher level
-- Super Admin can broadcast to everyone
+Higher level can message lower levels. Lower level CANNOT message higher level.
 
-## Deployment on Render
+## Local Development
 
-1. Push code to GitHub
-2. Create new Web Service on Render
-3. Connect your repo
-4. Set Build Command: `composer install --no-dev && php artisan migrate --force`
-5. Set Start Command: `php artisan serve --host=0.0.0.0 --port=$PORT`
-
-## Environment Variables (Render)
-
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite
+php artisan migrate --seed
+php artisan serve
 ```
-APP_KEY=base64:xHNfLJZPNfXp8JmVZq2X8k5v+E3dq5LMq3gQ7tD5Hzs=
-APP_ENV=production
-APP_DEBUG=false
-DB_CONNECTION=sqlite
-```
+
+## Deploy to Render (Docker)
+
+### Step 1: Create PostgreSQL Database
+1. Go to Render Dashboard
+2. Click **New +** → **PostgreSQL**
+3. Name: `hierarchy-chat-db`
+4. Plan: Free
+5. Create and copy the **Internal Database URL**
+
+### Step 2: Deploy Web Service
+1. Click **New +** → **Web Service**
+2. Connect your GitHub repo
+3. Configure:
+   - **Root Directory:** `backend`
+   - **Runtime:** Docker
+4. Add Environment Variables:
+
+| Key | Value |
+|-----|-------|
+| DATABASE_URL | (Internal Database URL from Step 1) |
+| DB_CONNECTION | pgsql |
+| APP_KEY | Run `php artisan key:generate --show` locally |
+| APP_ENV | production |
+| APP_DEBUG | false |
+
+5. Deploy!
 
 ## API Endpoints
 
@@ -50,10 +69,15 @@ DB_CONNECTION=sqlite
 | Admin | admin1@example.com | password123 |
 | Employee | employee1@example.com | password123 |
 
-## Local Development
+## Files for Docker Deployment
 
-```bash
-composer install
-php artisan migrate --seed
-php artisan serve
+```
+backend/
+├── Dockerfile
+├── .dockerignore
+├── render.yaml
+├── scripts/
+│   └── 00-laravel-deploy.sh
+└── conf/nginx/
+    └── nginx-site.conf
 ```
