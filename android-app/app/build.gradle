@@ -27,7 +27,7 @@ android {
         // buildConfigField "String", "API_BASE_URL", '"http://192.168.90.27:8000/api/"'
         
         // NGROK TUNNEL (Works from anywhere):
-        buildConfigField "String", "API_BASE_URL", '"https://0ba2752c2f66.ngrok-free.app/api/"'
+        buildConfigField "String", "API_BASE_URL", '"https://b60a4e238d22.ngrok-free.app/api/"'
     }
 
     buildTypes {

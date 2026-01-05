@@ -1,16 +1,12 @@
 package com.hierarchychat
 
 import android.app.Application
+import com.hierarchychat.utils.SessionManager
 
 class HierarchyChatApp : Application() {
     
-    companion object {
-        lateinit var instance: HierarchyChatApp
-            private set
-    }
-    
     override fun onCreate() {
         super.onCreate()
-        instance = this
+        SessionManager.init(this)
     }
 }
