@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Hierarchy Chat</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="chats">Chats</string>
+    <string name="groups">Groups</string>
+    <string name="users">Users</string>
+    <string name="tasks">Tasks</string>
+    <string name="more">More</string>
+    <string name="send">Send</string>
+    <string name="type_message">Type a message...</string>
+    <string name="no_messages">No messages yet</string>
+    <string name="no_conversations">No conversations yet</string>
+    <string name="no_groups">No groups yet</string>
+</resources>
